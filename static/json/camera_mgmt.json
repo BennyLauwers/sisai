@@ -1,0 +1,363 @@
+[
+    {
+        "camera": "Kirchhoff_Institute_for_Physics_Germany",
+        "json-name": "Kirchhoff_Institute_for_Physics_Germany.json",
+        "rtsp-url": "http://pendelcam.kip.uni-heidelberg.de/mjpg/video.mjpg",
+        "picture_path": "/static/images/Kirchhoff_Institute_for_Physics_Germany.jpg",
+        "zone_points": [
+            [
+                [
+                    3,
+                    62
+                ],
+                [
+                    109,
+                    53
+                ],
+                [
+                    134,
+                    52
+                ],
+                [
+                    349,
+                    62
+                ],
+                [
+                    488,
+                    86
+                ],
+                [
+                    462,
+                    356
+                ],
+                [
+                    0,
+                    355
+                ]
+            ]
+        ],
+        "detection_classes": [],
+        "camera_status": "stopped"
+    },
+    {
+        "camera": "Takemoto_Piano_Osaka_Japan",
+        "json-name": "Takemoto_Piano_Osaka_Japan.json",
+        "rtsp-url": "http://takemotopiano.aa1.netvolante.jp:8190/nphMotionJpeg?Resolution=640x480&Quality=Standard&Framerate=30",
+        "picture_path": "/static/images/Takemoto_Piano_Osaka_Japan.jpg",
+        "zone_points": [
+            []
+        ],
+        "detection_classes": [
+            "Person"
+        ],
+        "camera_status": "stopped"
+    },
+    {
+        "camera": "Soltorget_Pajala_Sweden",
+        "json-name": "Soltorget_Pajala_Sweden.json",
+        "rtsp-url": "http://195.196.36.242/mjpg/video.mjpg",
+        "picture_path": "/static/images/Soltorget_Pajala_Sweden.jpg",
+        "zone_points": [
+            [
+                [
+                    4,
+                    1450
+                ],
+                [
+                    404,
+                    1427
+                ],
+                [
+                    727,
+                    1406
+                ],
+                [
+                    954,
+                    1374
+                ],
+                [
+                    1259,
+                    1337
+                ],
+                [
+                    1524,
+                    1323
+                ],
+                [
+                    1650,
+                    1296
+                ],
+                [
+                    1712,
+                    1291
+                ],
+                [
+                    2070,
+                    1255
+                ],
+                [
+                    2359,
+                    1213
+                ],
+                [
+                    2762,
+                    1177
+                ],
+                [
+                    2887,
+                    1156
+                ],
+                [
+                    2885,
+                    1722
+                ],
+                [
+                    3,
+                    1724
+                ]
+            ]
+        ],
+        "detection_classes": [
+            "Person",
+            "Truck",
+            "Car"
+        ],
+        "camera_status": "stopped"
+    },
+    {
+        "camera": "Kaiskuru_Skistadion_Norway",
+        "json-name": "Kaiskuru_Skistadion_Norway.json",
+        "rtsp-url": "http://77.222.181.11:8080/mjpg/video.mjpg",
+        "picture_path": "/static/images/Kaiskuru_Skistadion_Norway.jpg",
+        "zone_points": [
+            [
+                [
+                    1,
+                    456
+                ],
+                [
+                    440,
+                    319
+                ],
+                [
+                    485,
+                    293
+                ],
+                [
+                    592,
+                    281
+                ],
+                [
+                    679,
+                    276
+                ],
+                [
+                    697,
+                    399
+                ],
+                [
+                    595,
+                    422
+                ],
+                [
+                    503,
+                    493
+                ],
+                [
+                    3,
+                    497
+                ]
+            ]
+        ],
+        "detection_classes": [
+            "Person"
+        ],
+        "camera_status": "stopped"
+    },
+    {
+        "camera": "Community_Hospital_San_Bernardino_USA",
+        "json-name": "Community_Hospital_San_Bernardino_USA.json",
+        "rtsp-url": "http://webcam.mchcares.com/mjpg/video.mjpg?timestamp=1566232173730",
+        "picture_path": "/static/images/Community_Hospital_San_Bernardino_USA.jpg",
+        "zone_points": [
+            [
+                [
+                    1359,
+                    153
+                ],
+                [
+                    1367,
+                    198
+                ],
+                [
+                    1381,
+                    237
+                ],
+                [
+                    1424,
+                    266
+                ],
+                [
+                    1493,
+                    296
+                ],
+                [
+                    1549,
+                    332
+                ],
+                [
+                    1586,
+                    403
+                ],
+                [
+                    1584,
+                    456
+                ],
+                [
+                    1570,
+                    522
+                ],
+                [
+                    1582,
+                    596
+                ],
+                [
+                    1610,
+                    667
+                ],
+                [
+                    1654,
+                    726
+                ],
+                [
+                    1720,
+                    775
+                ],
+                [
+                    1795,
+                    811
+                ],
+                [
+                    1917,
+                    847
+                ],
+                [
+                    1876,
+                    734
+                ],
+                [
+                    1858,
+                    665
+                ],
+                [
+                    1868,
+                    607
+                ],
+                [
+                    1909,
+                    575
+                ],
+                [
+                    1956,
+                    550
+                ],
+                [
+                    2047,
+                    543
+                ],
+                [
+                    2047,
+                    392
+                ],
+                [
+                    1927,
+                    327
+                ],
+                [
+                    1807,
+                    271
+                ],
+                [
+                    1692,
+                    227
+                ],
+                [
+                    1615,
+                    204
+                ],
+                [
+                    1548,
+                    186
+                ],
+                [
+                    1474,
+                    167
+                ]
+            ]
+        ],
+        "detection_classes": [
+            "Person"
+        ],
+        "camera_status": "stopped"
+    },
+    {
+        "camera": "Tampere_Hack_Lab_Finland",
+        "json-name": "Tampere_Hack_Lab_Finland.json",
+        "rtsp-url": "http://tamperehacklab.tunk.org:38001/nphMotionJpeg?Resolution=640x480&Quality=Clarity",
+        "picture_path": "/static/images/Tampere_Hack_Lab_Finland.jpg",
+        "zone_points": [
+            [
+                [
+                    2,
+                    269
+                ],
+                [
+                    256,
+                    247
+                ],
+                [
+                    316,
+                    471
+                ],
+                [
+                    11,
+                    469
+                ]
+            ]
+        ],
+        "detection_classes": [
+            "Person"
+        ],
+        "camera_status": "stopped"
+    },
+    {
+        "camera": "B_at_Home",
+        "json-name": "B_at_Home.json",
+        "rtsp-url": "rtsp://192.168.1.37:8554/unicast",
+        "picture_path": "/static/images/B_at_Home.jpg",
+        "zone_points": [
+            [
+                [
+                    531,
+                    766
+                ],
+                [
+                    1016,
+                    765
+                ],
+                [
+                    1015,
+                    6
+                ],
+                [
+                    554,
+                    4
+                ]
+            ]
+        ],
+        "detection_classes": [
+            "Person"
+        ],
+        "camera_status": "stopped"
+    }
+]

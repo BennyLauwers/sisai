@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en" class="perfect-scrollbar-on">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no">
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/bla.css') }}">
+        <link rel="icon" type="image/jpg" sizes="32x32" href="{{ url_for('static',filename='images/favicon.jpg') }}">
+        
+        <title>
+            Site Safety Detection
+        </title>
+
+        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet">
+        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+        <link href="https://appsrv1-147a1.kxcdn.com/black-dashboard/css/nucleo-icons.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://js.arcgis.com/3.40/dijit/themes/nihilo/nihilo.css">
+        <link rel="stylesheet" href="https://js.arcgis.com/3.40/esri/css/esri.css">
+
+
+    </head>
+        
+    <body class style>
+        <div class="wrapper">
+            <div id="my_sidebar" class="sidebar">  
+                <div class="sidebar-wrapper ps">  
+                    <div class="closebtn" onclick="closeNav()">
+                        ×
+                    </div>
+                    <div class="logo" style="padding-right: 100px; padding-bottom: 20px;">
+                        <img src="{{ url_for('static',filename='images/logo.png') }}" alt="Logo_Viu_More">
+                    </div>
+                    <ul class="nav">
+                      <li class>
+                        <a href="/">
+                        <i class="tim-icons icon-chart-pie-36"></i>
+                        <p>My Dashboard</p>
+                        </a>
+                      </li>
+                      <li class>
+                        <a href="/livestreams_overview/1">
+                        <i class="tim-icons icon-atom"></i>
+                        <p>Overview Livestreams</p>
+                        </a>
+                      </li>
+                      <li class>
+                        <a href="/my_cameras">
+                        <i class="tim-icons icon-settings-gear-63"></i>
+                        <p>My Cameras</p>
+                        </a>
+                       </li>
+                       <li class="list-unstyled">
+                        <ul>
+                            <li class = active> 
+                              <i class="tim-icons icon-simple-add"></i>
+                                <p>Add Camera</p>
+                                </a>
+                            </li>
+                        </ul>
+                        </li>
+                    </ul>
+                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                        <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__rail-y" style="top: 0px; right: 0px;">
+                        <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="open_sidebar_button"></div>
+                    <button class="openbtn" onclick="openNav()"><b>></b></button>
+            </div>
+
+            <div id="main">
+                <div class="main-panel ps">
+                <!-- Navbar -->
+                <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navigation">
+                            <ul class="navbar-nav ml-auto">
+                                <li class>
+                                    <a href="#">
+                                        <div class="photo">
+                                            <img src="{{ url_for('static',filename='images/BLA.jpg') }}" alt="Profile Photo">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class>
+                                    <a href="#">Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" data-dashlane-rid="88b86deec8f4a1ad">
+                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH" data-dashlane-rid="22b55a4010048a72">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-dashlane-rid="5692c587711cc0f2">
+                            <i class="tim-icons icon-simple-remove"></i>
+                        </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- End Navbar -->
+                <div class="content">
+                    <h1>Viu More Site Safety Detection - Add camera</h1>
+                    <div class="content">
+                      <div class="card">
+                        <div class="card-header">
+                          <h4 class="card-title">Add New Camera</h4>
+                        </div>
+                        <div class="card-body">
+                          <form method="get" action="/" class="form-horizontal" data-dashlane-rid="16d0ce49f4a8632f" data-form-type="other">
+                            <div class="row">
+                              <label class="col-sm-2 col-form-label">Camera ID *</label>
+                              <div class="col-sm-10">
+                                <div class="form-group">
+                                  <input id="input_cam_id" type="text" class="form-control" data-dashlane-rid="89bc61e8bd4956a3" data-form-type="other">
+                                  <span class="form-text">* no spaces allowed in camera id name</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <label class="col-sm-2 col-form-label">RTSP URL</label>
+                              <div class="col-sm-10">
+                                <div class="form-group">
+                                  <input id="input_rtsp_url" type="text" class="form-control" placeholder="{{rtsp_url}}" data-dashlane-rid="89bc61e8bd4956a3" data-form-type="other">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <label class="col-sm-2 col-form-label"></label>
+                              <div class="col-sm-10" class="">
+                                <div class="form-group">
+                                    <div class="btn-group">
+                                      <button type="button" style="color: #ffffff; padding: 11px 15px; background-image: linear-gradient(to bottom left, #193669, #193669, #193669)" class="btn btn-primary" onclick="connectCamera()">Connect Camera</button>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>                            
+                          </form>
+                        </div>
+                      </div> 
+                    </div>
+                </div>
+              </div>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+        function closeNav() {
+        document.getElementById("my_sidebar").style.width = "0px";
+        document.getElementById("main").style.marginLeft= "0px";
+        document.getElementById("open_sidebar_button").style.marginLeft= "0px";
+        }
+
+        function openNav() {
+        document.getElementById("my_sidebar").style.width = "300px";
+        document.getElementById("main").style.marginLeft = "300px";
+        document.getElementById("wrapper").style.width = "calc(100vh-300px)";
+        }
+
+        function connectCamera() {
+            var input_cam_id = document.getElementById("input_cam_id").value
+            var white_spaces = hasWhiteSpace(input_cam_id)
+            var input_rtsp_url = document.getElementById("input_rtsp_url").value
+            if (white_spaces) {
+              document.getElementById("input_cam_id").style.borderColor = "red";
+              alert("Camera ID contains one or more spaces in the input field!! Please remove.")
+            }
+            else {
+              passCameraParameters(input_cam_id, input_rtsp_url)
+            }
+        }
+
+        function hasWhiteSpace(s) {
+            return s.indexOf(' ') >= 0;
+        }
+
+        function passCameraParameters(input_cam_id, input_rtsp_url) {
+          var add_cam_data = {'cam_id': input_cam_id, 'rtsp_url': input_rtsp_url}  
+          $.ajax({
+                type: 'POST',
+                data: JSON.stringify(add_cam_data),
+                url: '/api/connectcamera',
+                contentType: "application/json",
+                method: 'POST',
+                success: function(camera) {
+                  var parsed_data = JSON.parse(camera)
+                  if (parsed_data == "exists") {
+                    document.getElementById("input_cam_id").style.borderColor = "red";
+                    alert("Camera ID already exists!! Please change Camera ID name.")
+                  }
+                  else if (parsed_data == "not_opening") {
+                    document.getElementById("input_cam_id").style.borderColor = "red";
+                    alert("Unable to connect camera stream!! Please check URL or connection with the camera.")
+                  }
+                  else {
+                    window.location.href = '/my_cameras/settings/camera_initialization/'+ parsed_data
+                  }
+                }
+            });
+        }
+
+        function captureImage() {
+            var cam = document.location.href.substring(document.location.href.lastIndexOf('/') + 1);
+            passCaptureImage(cam)
+        }
+
+        function passCaptureImage(cam) {
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(cam),
+                url: '/api/createimage',
+                contentType: "application/json",
+                method: 'POST',
+                success: function(file_path) {
+                  window.location.href = '/my_cameras/settings/{{camera}}'
+                }
+            });
+        }
+    </script>
+</html>

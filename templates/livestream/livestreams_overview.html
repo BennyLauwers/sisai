@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en" class="perfect-scrollbar-on">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/bla.css') }}">
+        <link rel="icon" type="image/jpg" sizes="32x32" href="{{ url_for('static',filename='images/favicon.jpg') }}">
+        
+        <title>
+            Site Safety Detection
+        </title>
+
+        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet">
+        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+        <link href="https://appsrv1-147a1.kxcdn.com/black-dashboard/css/nucleo-icons.css" rel="stylesheet">
+
+    </head>
+      
+    <body class style>
+        <div class="wrapper">
+            <div id="my_sidebar" class="sidebar">  
+                <div class="sidebar-wrapper ps">  
+                    <div class="closebtn" onclick="closeNav()">
+                        ×
+                    </div>
+                    <div class="logo" style="padding-right: 100px; padding-bottom: 20px;">
+                        <img src="{{ url_for('static',filename='images/logo.png') }}" alt="Logo_Viu_More">
+                    </div>
+                    <ul class="nav">
+                        <li class>
+                            <a href="/" onclick="endstreams()">
+                            <i class="tim-icons icon-chart-pie-36"></i>
+                            <p>My Dashboard</p>
+                            </a>
+                        </li>
+                        <li class = active>
+                            <a href="/livestreams_overview/1" onclick="endstreams()">
+                            <i class="tim-icons icon-atom"></i>
+                            <p>Overview Livestreams</p>
+                            </a>
+                        </li>
+                        <li class>
+                            <a href="/my_cameras" onclick="endstreams()">
+                            <i class="tim-icons icon-settings-gear-63"></i>
+                            <p>My Cameras</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                        <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__rail-y" style="top: 0px; right: 0px;">
+                        <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="open_sidebar_button"></div>
+                    <button class="openbtn" onclick="openNav()"><b>></b></button>
+            </div>
+
+            <div id="main">
+                <div class="main-panel ps">
+                <!-- Navbar -->
+                <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navigation">
+                            <ul class="navbar-nav ml-auto">
+                                <li class>
+                                    <a href="#">
+                                        <div class="photo">
+                                            <img src="{{ url_for('static',filename='images/BLA.jpg') }}" alt="Profile Photo">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class>
+                                    <a href="#" onclick="endstreams()">Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" data-dashlane-rid="88b86deec8f4a1ad">
+                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH" data-dashlane-rid="22b55a4010048a72">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-dashlane-rid="5692c587711cc0f2">
+                            <i class="tim-icons icon-simple-remove"></i>
+                        </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- End Navbar -->
+                <div class="content">
+                    <h1>Viu More Site Safety Detection - Livestream Overview</h1>
+                    <div class="table-responsive ps">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <div style="display: flex;">
+                                        <p style="margin-right: 25px">Page:</p>
+                                        {%for p in range(0, page_array_len)%}
+                                        {% if pages[p] == page_id %}
+                                        <a style="margin-right: 25px ; margin-bottom: 25px; color: #ED6A53">{{pages[p]}}</a>
+                                        {% else %}
+                                        <a style="margin-right: 25px ; margin-bottom: 25px; text-decoration: underline; color: #193669" href="/livestreams_overview/{{pages[p]}}" onclick="endstreams()">{{pages[p]}}</a>
+                                        {% endif %}
+                                        {%endfor%}
+                                    </div>
+                                </tr>
+                                {% if len == 1 %}
+                                    <tr>
+                                        {%for i in range(0, 1)%} 
+                                        <td>
+                                            <h5 class="card-category" style="color: rgba(0, 0, 0, 0.8)">{{camera_list[i]}}</h5>
+                                            <a class="card card-header"  href="/livestream/{{camera_list[i]}}" onclick="endstreams()" style="max-width: 480px; min-height: 375px; justify-content: center;">
+                                                <div>
+                                                    <img src="{{url_for('video_feeds_overview.video_feeds_overview', camera_id=camera_list[i]) }}" height="100%">
+                                                </div>
+                                            </a>
+                                        </td>
+                                        {% endfor %}
+                                    </tr> 
+                                {% endif %}
+                                {% if len == 2 %}
+                                <tr>    
+                                    {%for i in range(0, 2)%}
+                                    <td>
+                                        <h5 class="card-category" style="color: rgba(0, 0, 0, 0.8)">{{camera_list[i]}}</h5>
+                                        <a class="card card-header"  href="/livestream/{{camera_list[i]}}" onclick="endstreams()" style="max-width: 480px; min-height: 375px; justify-content: center;">
+                                            <div>
+                                                <img src="{{url_for('video_feeds_overview.video_feeds_overview', camera_id=camera_list[i]) }}" height="100%">
+                                            </div>
+                                        </a>
+                                    </td>
+                                    {%endfor%}
+                                </tr>
+                                {% endif %}
+                                {% if len == 3 %}
+                                <tr>    
+                                    {%for i in range(0, 2)%}
+                                    <td>
+                                        <h5 class="card-category" style="color: rgba(0, 0, 0, 0.8)">{{camera_list[i]}}</h5>
+                                        <a class="card card-header"  href="/livestream/{{camera_list[i]}}" onclick="endstreams()" style="max-width: 480px; min-height: 375px; justify-content: center;">
+                                            <div>
+                                                <img src="{{url_for('video_feeds_overview.video_feeds_overview', camera_id=camera_list[i]) }}" height="100%">
+                                            </div>
+                                        </a>
+                                    </td>
+                                    {%endfor%}
+                                </tr>
+                                <tr>
+                                    {%for i in range(2, 3)%}
+                                    <td>
+                                        <h5 class="card-category" style="color: rgba(0, 0, 0, 0.8)">{{camera_list[i]}}</h5>
+                                        <a class="card card-header"  href="/livestream/{{camera_list[i]}}" onclick="endstreams()" style="max-width: 480px; min-height: 375px; justify-content: center;">
+                                            <div>
+                                                <img src="{{url_for('video_feeds_overview.video_feeds_overview', camera_id=camera_list[i]) }}" height="100%">
+                                            </div>
+                                        </a>
+                                    </td>
+                                    {%endfor%}
+                                </tr>
+                                {% endif %}
+                                {% if len == 4 %}
+                                <tr>    
+                                    {%for i in range(0, 2)%}
+                                    <td>
+                                        <h5 class="card-category" style="color: rgba(0, 0, 0, 0.8)">{{camera_list[i]}}</h5>
+                                        <a class="card card-header"  href="/livestream/{{camera_list[i]}}" onclick="endstreams()" style="max-width: 480px; min-height: 375px; justify-content: center;">
+                                            <div>
+                                                <img src="{{url_for('video_feeds_overview.video_feeds_overview', camera_id=camera_list[i]) }}" height="100%">
+                                            </div>
+                                        </a>
+                                    </td>
+                                    {%endfor%}
+                                </tr>
+                                <tr>
+                                    {%for i in range(2, 4)%}
+                                    <td>
+                                        <h5 class="card-category" style="color: rgba(0, 0, 0, 0.8)">{{camera_list[i]}}</h5>
+                                        <a class="card card-header"  href="/livestream/{{camera_list[i]}}" onclick="endstreams()" style="max-width: 480px; min-height: 375px; justify-content: center;">
+                                            <div>
+                                                <img src="{{url_for('video_feeds_overview.video_feeds_overview', camera_id=camera_list[i]) }}" height="100%">
+                                            </div>
+                                        </a>
+                                    </td>
+                                    {%endfor%}
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+        function closeNav() {
+        document.getElementById("my_sidebar").style.width = "0px";
+        document.getElementById("main").style.marginLeft= "0px";
+        document.getElementById("open_sidebar_button").style.marginLeft= "0px";
+        }
+
+        function openNav() {
+        document.getElementById("my_sidebar").style.width = "300px";
+        document.getElementById("main").style.marginLeft = "300px";
+        document.getElementById("wrapper").style.width = "calc(100vh-300px)";
+        }
+
+        function endstreams() {
+            var end_stream = {'end_stream': "stop"}
+                 $.ajax({
+                    type: 'POST',
+                    data: JSON.stringify(end_stream),
+                    url: '/api/endstreamsoverview',
+                    contentType: "application/json",
+                    method: 'POST',
+                    success: function() {
+                        console.log("success")
+                    }
+            });
+        }
+    </script>
+
+</html>

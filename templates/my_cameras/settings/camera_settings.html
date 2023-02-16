@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en" class="perfect-scrollbar-on">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no">
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/bla.css') }}">
+        <link rel="icon" type="image/jpg" sizes="32x32" href="{{ url_for('static',filename='images/favicon.jpg') }}">
+        
+        <title>
+            Site Safety Detection
+        </title>
+
+        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet">
+        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+        <link href="https://appsrv1-147a1.kxcdn.com/black-dashboard/css/nucleo-icons.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://js.arcgis.com/3.40/dijit/themes/nihilo/nihilo.css">
+        <link rel="stylesheet" href="https://js.arcgis.com/3.40/esri/css/esri.css">
+
+
+    </head>
+        
+    <body class style>  
+      <div class="wrapper">
+            <div id="my_sidebar" class="sidebar">  
+                <div class="sidebar-wrapper ps">  
+                    <div class="closebtn" onclick="closeNav()">
+                        ×
+                    </div>
+                    <div class="logo" style="padding-right: 100px; padding-bottom: 20px;">
+                        <img src="{{ url_for('static',filename='images/logo.png') }}" alt="Logo_Viu_More">
+                    </div>
+                    <ul class="nav">
+                      <li class>
+                        <a href="/">
+                        <i class="tim-icons icon-chart-pie-36"></i>
+                        <p>My Dashboard</p>
+                        </a>
+                      </li>
+                      <li class>
+                        <a href="/livestreams_overview/1">
+                          <i class="tim-icons icon-atom"></i>
+                          <p>Overview Livestreams</p>
+                          </a>
+                      </li>
+                        <li class>
+                            <a href="/my_cameras">
+                            <i class="tim-icons icon-video-66"></i>
+                            <p>My Cameras</p>
+                            </a>
+                        </li>
+                        <li class="list-unstyled">
+                          <ul>
+                              <li class = active>
+                                  <i class="tim-icons icon-settings-gear-63"></i>
+                                  <p>Settings {{camera}}</p>
+                                  </a>
+                              </li>
+                          </ul>
+                          </li>
+                    </ul>
+                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                        <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__rail-y" style="top: 0px; right: 0px;">
+                        <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="open_sidebar_button"></div>
+                    <button class="openbtn" onclick="openNav()"><b>></b></button>
+            </div>
+
+            <div id="main">
+                <div class="main-panel ps">
+                <!-- Navbar -->
+                <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navigation">
+                            <ul class="navbar-nav ml-auto">
+                                <li class>
+                                    <a href="#">
+                                        <div class="photo">
+                                            <img src="{{ url_for('static',filename='images/BLA.jpg') }}" alt="Profile Photo">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class>
+                                    <a href="#">Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" data-dashlane-rid="88b86deec8f4a1ad">
+                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH" data-dashlane-rid="22b55a4010048a72">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-dashlane-rid="5692c587711cc0f2">
+                            <i class="tim-icons icon-simple-remove"></i>
+                        </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- End Navbar -->
+                <div class="content">
+                    <h1>Viu More Site Safety Detection - Camera Settings</h1>
+                    <div class="content">
+                      <div class="card">
+                        <div class="card-header">
+                          <h2 class="card-title">{{camera}}</h2>
+                        </div>
+                        <div class="card-body">
+                          <form method="get" action="/" class="form-horizontal" data-dashlane-rid="16d0ce49f4a8632f" data-form-type="other">
+                            <div class="row">
+                              <label class="col-sm-2 col-form-label" style="font-size: 0.9rem">RTSP URL</label>
+                              <div class="col-sm-10">
+                                <div class="form-group">
+                                  <p class="form-control-static">{{rtsp_url}}</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <label class="col-sm-2 col-form-label" style="font-size: 0.9rem">Detection Classes</label>
+                              <div class="col-sm-10">
+                                <div class="form-group" style="display: flex">
+                                  {% if "Person" in detection_classes %}
+                                  <p class="form-control-static" style="margin-right: 25px"><i style="color: #00FF00" class="tim-icons icon-check-2"></i> Person</p>
+                                  {% else %}
+                                  <p class="form-control-static" style="margin-right: 25px"><i style="color:#F00" class="tim-icons icon-simple-remove"></i> Person</p>
+                                  {% endif %}
+                                  {% if "Truck" in detection_classes %}
+                                  <p class="form-control-static" style="margin-right: 25px"><i style="color: #00FF00" class="tim-icons icon-check-2"></i> Truck</p>
+                                  {% else %}
+                                  <p class="form-control-static" style="margin-right: 25px"><i style="color:#F00" class="tim-icons icon-simple-remove"></i> Truck</p>
+                                  {% endif %}
+                                  {% if "Car" in detection_classes %}
+                                  <p class="form-control-static" style="margin-right: 25px"><i style="color: #00FF00" class="tim-icons icon-check-2"></i> Car</p>
+                                  {% else %}
+                                  <p class="form-control-static" style="margin-right: 25px"><i style="color:#F00" class="tim-icons icon-simple-remove"></i> Car</p>
+                                  {% endif %}
+                                </div>
+                              </div> 
+                            </div>
+                            <div class="row">
+                              <label class="col-sm-2 col-form-label" style="font-size: 0.9rem">Camera Status</label>
+                              <div class="col-sm-10">
+                                {% if status == "" %}
+                                <div class="form-group">
+                                  <p class="form-control-static">Start Camera to Start Detections</p>
+                                    <button type="button" style="border: none; color: #ffffff; padding: 11px 15px; background-image: linear-gradient(to bottom left, #00FF00, #00FF00, #00FF00)" class="btn btn-primary" onclick="statusCamera('start')">Start Camera</button>
+                                </div>
+                                {%else%}
+                                <div class="form-group">
+                                  <p class="form-control-static">{{status}}</p>
+                                  {% if status == "stopped" %}
+                                  <button type="button" style="border: none; color: #ffffff; padding: 11px 15px; background-image: linear-gradient(to bottom left, #00FF00, #00FF00, #00FF00)" class="btn btn-primary" onclick="statusCamera('start')">Start Camera</button>
+                                  {% elif status == "running" %}
+                                  <button type="button" style="border: none; color: #ffffff; padding: 11px 15px; background-image: linear-gradient(to bottom left, #F00, #F00, #F00)" class="btn btn-primary" onclick="statusCamera('stop')">Stop Camera</button>
+                                  {% endif %}
+                                </div>
+                                {% endif %}
+                              </div>
+                            </div>
+                            <div class="row">
+                              <label class="col-sm-2 col-form-label" style="font-size: 0.9rem">Image</label>
+                              <div class="col-sm-10" class="">
+                                <div class="photo">
+                                  <img src={{path}} alt="Screenshot">
+                                </div>
+                                <div>
+                                  <button type="button" style="border: none; color: #ffffff; padding: 11px 15px; background-image: linear-gradient(to bottom left, #000, #000, #000)" class="btn btn-primary" onclick="resetParameters()">Reset Parameters</button>
+                                  <button type="button" style="border: none; color: #ffffff; padding: 11px 15px; background-image: linear-gradient(to bottom left, #F00, #F00, #F00)" class="btn btn-primary" onclick="deleteCamera()">Delete Camera</button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div> 
+                    </div>
+                </div>
+              </div>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+        function closeNav() {
+        document.getElementById("my_sidebar").style.width = "0px";
+        document.getElementById("main").style.marginLeft= "0px";
+        document.getElementById("open_sidebar_button").style.marginLeft= "0px";
+        }
+
+        function openNav() {
+        document.getElementById("my_sidebar").style.width = "300px";
+        document.getElementById("main").style.marginLeft = "300px";
+        document.getElementById("wrapper").style.width = "calc(100vh-300px)";
+        }
+
+        function captureImage() {
+            var cam = document.location.href.substring(document.location.href.lastIndexOf('/') + 1);
+            passCaptureImage(cam)
+        }
+
+        function passCaptureImage(cam) {
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(cam),
+                url: '/api/createimage',
+                contentType: "application/json",
+                method: 'POST',
+                success: function(file_path) {
+                  window.location.href = '/my_cameras/settings/{{camera}}'
+                }
+            });
+        }
+
+        function resetParameters() {
+            var cam = document.location.href.substring(document.location.href.lastIndexOf('/') + 1);
+            passResetParameters(cam)
+        }
+
+        function passResetParameters(cam) {
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(cam),
+                url: '/api/resetparameters',
+                contentType: "application/json",
+                method: 'POST',
+                success: function() {
+                  window.location.href = '/my_cameras/settings/camera_initialization/{{camera}}'
+                }
+            });
+        }
+
+        function deleteCamera() {
+            var cam = document.location.href.substring(document.location.href.lastIndexOf('/') + 1);
+            passDeleteCamera(cam)
+        }
+
+        function passDeleteCamera(cam) {
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(cam),
+                url: '/api/deletecamera',
+                contentType: "application/json",
+                method: 'POST',
+                success: function() {
+                  window.location.href = '/my_cameras'
+                }
+            });
+        }
+
+        function statusCamera(status) {
+            var cam = document.location.href.substring(document.location.href.lastIndexOf('/') + 1);
+            passstatusCamera(cam, status)
+        }
+
+        function passstatusCamera(cam, status) {
+          var status_data = {'camera_id': cam, 'status': status}  
+          $.ajax({
+                type: 'POST',
+                data: JSON.stringify(status_data),
+                url: '/api/passcamerastatus',
+                contentType: "application/json",
+                method: 'POST',
+                success: function() {
+                  window.location.href = '/my_cameras/settings/{{camera}}'
+                }
+            });
+        }
+    </script>
+
+</html>

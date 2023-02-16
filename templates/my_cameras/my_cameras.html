@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en" class="perfect-scrollbar-on">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/bla.css') }}">
+        <link rel="icon" type="image/jpg" sizes="32x32" href="{{ url_for('static',filename='images/favicon.jpg') }}">
+        
+        <title>
+            Site Safety Detection
+        </title>
+
+        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet">
+        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+        <link href="https://appsrv1-147a1.kxcdn.com/black-dashboard/css/nucleo-icons.css" rel="stylesheet">
+
+    </head>
+      
+    <body class style>
+        <div class="wrapper">
+            <div id="my_sidebar" class="sidebar">  
+                <div class="sidebar-wrapper ps">  
+                    <div class="closebtn" onclick="closeNav()">
+                        ×
+                    </div>
+                    <div class="logo" style="padding-right: 100px; padding-bottom: 20px;">
+                        <img src="{{ url_for('static',filename='images/logo.png') }}" alt="Logo_Viu_More">
+                    </div>
+                    <ul class="nav">
+                        <li class>
+                            <a href="/">
+                            <i class="tim-icons icon-chart-pie-36"></i>
+                            <p>My Dashboard</p>
+                            </a>
+                        </li>
+                        <li class>
+                            <a href="/livestreams_overview/1">
+                            <i class="tim-icons icon-atom"></i>
+                            <p>Overview Livestreams</p>
+                            </a>
+                        </li>
+                        <li class = "active">
+                            <a href="/my_cameras">
+                            <i class="tim-icons icon-video-66"></i>
+                            <p>My Cameras</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                        <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__rail-y" style="top: 0px; right: 0px;">
+                        <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="open_sidebar_button"></div>
+                    <button class="openbtn" onclick="openNav()"><b>></b></button>
+            </div>
+
+            <div id="main">
+                <div class="main-panel ps">
+                <!-- Navbar -->
+                <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navigation">
+                            <ul class="navbar-nav ml-auto">
+                                <li class>
+                                    <a href="#">
+                                        <div class="photo">
+                                            <img src="{{ url_for('static',filename='images/BLA.jpg') }}" alt="Profile Photo">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class>
+                                    <a href="#">Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" data-dashlane-rid="88b86deec8f4a1ad">
+                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH" data-dashlane-rid="22b55a4010048a72">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-dashlane-rid="5692c587711cc0f2">
+                            <i class="tim-icons icon-simple-remove"></i>
+                        </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- End Navbar -->
+                <div class="content">
+                    <h1>Viu More Site Safety Detection - My Cameras</h1>
+                    <h3>Camera Overview</h3>
+                    <a href="/mycameras/settings/add_camera"><button style="padding: 11px 15px;" class="btn btn-primary"><i style="font-size: large;" class="tim-icons icon-simple-add"></i></button></a>
+                    <div class="table-responsive ps">
+                        <table>
+                            <tbody>
+                                {%for i in range(0, len)%}
+                                <tr>
+                                    <td style="width: 80%;">
+                                        <a class="card card-header" href="/my_cameras/settings/{{camera_list[i]}}" style="width: 65%;">
+                                            <div style="display: flex;">
+                                            <div style="margin-right: 10px;">
+                                            <h2 class="card-title"> <i style="color: #ED6A53" class="tim-icons icon-video-66"></i> {{camera_list[i]}}</h2>
+                                            <h4 class="card-title">RTSP URL:</h4>
+                                            <h6 class="card-title"></i> {{rtsp_url[i]}}</h6>
+                                            <h4 class="card-title">DETECTION CLASSES:</h4>
+                                            <h6 class="card-title"></i> {{detection_classes[i]}} </h6>
+                                            <h4 class="card-title">DETECTION ZONE:</h4>
+                                            {% if detection_zone[i] == [[]] %}
+                                            <h6 class="card-title"></i> Not Installed</h6>
+                                            {% else %}
+                                            <h6 class="card-title"></i> Installed</h6>
+                                            {% endif %}
+                                            <h4 class="card-title">CAMERA STATUS:</h4>
+                                            <h6 class="card-title"></i> {{camera_status[i]}}</h6>
+                                            </div>
+                                                <div class="photo" style="max-width: 30%; margin-left: auto; margin-right: 0; margin-top: 3set 0px;">
+                                                    <img src="{{ url_for('static',filename='images/' + camera_list[i] +'.jpg') }}" alt="Screenshot">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {%endfor%}
+                            </tbody>
+                        </table>
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+        function closeNav() {
+        document.getElementById("my_sidebar").style.width = "0px";
+        document.getElementById("main").style.marginLeft= "0px";
+        document.getElementById("open_sidebar_button").style.marginLeft= "0px";
+        }
+
+        function openNav() {
+        document.getElementById("my_sidebar").style.width = "300px";
+        document.getElementById("main").style.marginLeft = "300px";
+        document.getElementById("wrapper").style.width = "calc(100vh-300px)";
+        }
+    </script>
+</html>

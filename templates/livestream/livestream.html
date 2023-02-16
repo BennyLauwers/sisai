@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en" class="perfect-scrollbar-on">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/bla.css') }}">
+        <link rel="icon" type="image/jpg" sizes="32x32" href="{{ url_for('static',filename='images/favicon.jpg') }}">
+        
+        <title>
+            Site Safety Detection
+        </title>
+
+        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet">
+        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+        <link href="https://appsrv1-147a1.kxcdn.com/black-dashboard/css/nucleo-icons.css" rel="stylesheet">
+
+    </head>
+      
+    <body class style>
+        <div class="wrapper">
+            <div id="my_sidebar" class="sidebar">  
+                <div class="sidebar-wrapper ps">  
+                    <div class="closebtn" onclick="closeNav()">
+                        ×
+                    </div>
+                    <div class="logo" style="padding-right: 100px; padding-bottom: 20px;">
+                        <img src="{{ url_for('static',filename='images/logo.png') }}" alt="Logo_Viu_More">
+                    </div>
+                    <ul class="nav">
+                        <li class>
+                            <a href="/">
+                            <i class="tim-icons icon-chart-pie-36"></i>
+                            <p>My Dashboard</p>
+                            </a>
+                        </li>
+                        <li class>
+                            <a href="/livestreams_overview/1">
+                            <i class="tim-icons icon-atom"></i>
+                            <p>Overview Livestreams</p>
+                            </a>
+                        <li class="list-unstyled">
+                            <ul>
+                                <li class = active>
+                                    <a href="/livestreams_overview/{{camera}}">
+                                    <i class="tim-icons icon-video-66"></i>
+                                    <p>{{camera}}</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class>
+                            <a href="/my_cameras">
+                            <i class="tim-icons icon-settings-gear-63"></i>
+                            <p>My Cameras</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                        <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__rail-y" style="top: 0px; right: 0px;">
+                        <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="open_sidebar_button"></div>
+                    <button class="openbtn" onclick="openNav()"><b>></b></button>
+            </div>
+
+            <div id="main">
+                <div class="main-panel ps">
+                <!-- Navbar -->
+                <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navigation">
+                            <ul class="navbar-nav ml-auto">
+                                <li class>
+                                    <a href="#">
+                                        <div class="photo">
+                                            <img src="{{ url_for('static',filename='images/BLA.jpg') }}" alt="Profile Photo">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class>
+                                    <a href="#">Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" data-dashlane-rid="88b86deec8f4a1ad">
+                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH" data-dashlane-rid="22b55a4010048a72">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-dashlane-rid="5692c587711cc0f2">
+                            <i class="tim-icons icon-simple-remove"></i>
+                        </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- End Navbar -->
+                <div class="content">
+                    <div class="content">
+                        <div class="table-responsive ps">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h2>Livestream</h2>
+                                            {% if rtsp_present == True %}
+                                            <div style="padding-right: 5px">
+                                                <img src="{{url_for('video_feed.video_feed', camera_id=camera) }}" width="100%">
+                                            </div>
+                                            {% elif rtsp_present == False %}
+                                            <div style="padding-right: 5px">
+                                                <h4>No rtsp url provided</h4>
+                                            </div>
+                                            {% endif %}
+                                        </td>
+                                        <td style="vertical-align: top; padding-left: 50px; padding-right: 10px;">
+                                            <h2 class="card-title"> <i style="color: #ED6A53" class="tim-icons icon-video-66"></i></i> {{camera}}</h2>
+                                            <div class="card card-header" style="width: 59%">
+                                                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> {{alert_value}}</h3>
+                                                {% if delta_value > 0 %}
+                                                <h4 class="card-title"><i style="color: #FF0000" class="tim-icons icon-minimal-up"></i> +{{delta_value}} vs yesterday</h4>
+                                                {% elif delta_value == 0 %}
+                                                <h4 class="card-title"><i class="tim-icons icon-minimal-right text-primary"></i> {{delta_value}} vs yesterday</h4>
+                                                {% elif delta_value < 0 %}
+                                                <h4 class="card-title"><i style="color: #00FF00" class="tim-icons icon-minimal-down"></i> {{delta_value}} vs yesterday</h4>
+                                                {% endif %}
+                                            </div>
+                                            <div class="table-responsive ps">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <input class = "form-control" style = "background-color: #ffffff; color: #193669; width: 60%;" type="text" name="datetimes" id="datepicker" />
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="table-responsive ps">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <div class="btn-group">
+                                                                <button type="button" class="btn btn-primary btn-sm" onclick="Last7days()">>Last 7 days</button>
+                                                                <button type="button" class="btn btn-primary btn-sm" onclick="Last30days()">Last 30 days</button>
+                                                                <button type="button" class="btn btn-primary btn-sm" onclick="Last365days()">Last 365 days</button>
+                                                              </div>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="table-responsive ps">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <div class="card card-chart">
+                                                                <div class="card-header">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6 text-left">
+                                                                            <h2 class="card-title">Alerts</h2>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                  <div class="">
+                                                                      <div class="chartjs-size-monitor">
+                                                                            <div class="chartjs-size-monitor-expand">
+                                                                                <div class=""></div>
+                                                                            </div>
+                                                                            <div class="chartjs-size-monitor-shrink">
+                                                                                <div class=""></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <canvas id="AlertChart" width="1224" height="420" style="display: block; height: 330px; width: 1113px;" class="chartjs-render-monitor"></canvas>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/js/main.js"></script>
+
+    <script>
+        function closeNav() {
+        document.getElementById("my_sidebar").style.width = "0px";
+        document.getElementById("main").style.marginLeft= "0px";
+        document.getElementById("open_sidebar_button").style.marginLeft= "0px";
+        }
+
+        function openNav() {
+        document.getElementById("my_sidebar").style.width = "300px";
+        document.getElementById("main").style.marginLeft = "300px";
+        document.getElementById("wrapper").style.width = "calc(100vh-300px)";
+        }
+
+        /*Project start data in chart when loading page*/
+        const ctx = document.getElementById('AlertChart');
+        const barChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: {{ dates | safe }},
+                datasets: [
+                    {
+                        data: {{ alerts | safe }},
+                        backgroundColor: 'rgb(237, 106, 83)',
+                        borderColor: 'rgb(237, 106, 83)'
+                    }
+                ]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                }
+            }
+        })
+
+
+        /*Pass date intervals to post method*/
+        function Last7days() {
+            var cam = document.location.href.substring(document.location.href.lastIndexOf('/') + 1);
+            var date_span = {'date_span': 7, 'camera': cam}
+            passDateInterval(date_span)
+        }
+
+        function Last30days() {
+            var cam = document.location.href.substring(document.location.href.lastIndexOf('/') + 1);
+            var date_span = {'date_span': 30, 'camera': cam}
+            passDateInterval(date_span)
+        }
+
+        function Last365days() {
+            var cam = document.location.href.substring(document.location.href.lastIndexOf('/') + 1);
+            var date_span = {'date_span': 365, 'camera': cam}
+            passDateInterval(date_span)
+        }
+
+        function passDateInterval(date_span, cam) {
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(date_span),
+                url: '/api/getdaysspan',
+                contentType: "application/json",
+                method: 'POST',
+                success: function(response_date_span) {
+                    var parsed_data = JSON.parse(response_date_span)
+                    updateChart(barChart, parsed_data)
+                }
+            });
+        }
+
+        function updateChart(chart, data) {
+            chart.data.labels = Object.keys(data);
+            chart.data.datasets.forEach((dataset) => {
+            dataset.data = Object.values(data);
+            });
+
+            chart.update();
+        }
+        
+        var cam = document.location.href.substring(document.location.href.lastIndexOf('/') + 1);
+        let input = document.getElementById('datepicker')
+        let picker = new Litepicker({
+            element: input,
+            firstDay: 1,
+            format: 'DD MMM YYYY',
+            singleMode: false,
+            numberOfMonths: 1,
+            numberOfColumns: 1,
+            showTooltip: true,
+            scrollToDate: true,
+            startDate: new Date().getTime(),
+            endDate: new Date().getTime(),
+            maxDate: new Date().getTime(),
+            onSelect: function(date1, date2) {
+                var date_interval = {'start_date': date1, 'end_date': date2, 'camera': cam}
+                $.ajax({
+                    type: 'POST',
+                    data: JSON.stringify(date_interval),
+                    url: '/api/getdaysintervalpicker',
+                    contentType: "application/json",
+                    method: 'POST',
+                    success: function(response_date_span)  {
+                        var parsed_data = JSON.parse(response_date_span)
+                        updateChart(barChart, parsed_data)
+                    }
+                });
+            }
+            })
+
+        $(window).bind('beforeunload', function() {
+            var end_stream = {'end_stream': "stop"}
+                $.ajax({
+                    type: 'POST',
+                    data: JSON.stringify(end_stream),
+                    url: '/api/endstream',
+                    contentType: "application/json",
+                    method: 'POST',
+                    success: function() {
+                        console.log("success")
+                    }
+                });
+        })
+    </script>
+
+</html>
