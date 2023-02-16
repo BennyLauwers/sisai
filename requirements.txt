@@ -16,3 +16,6 @@ gunicorn == 20.1.0
 requests == 2.27.1
 IPython == 7.34.0
 psutil == 5.9.4
+ffmpeg
+libsm6
+libxext6
