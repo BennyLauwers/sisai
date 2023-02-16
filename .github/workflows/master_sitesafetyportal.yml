@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'SiteSafetyPortal'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_54EAC81EAF534B71AE14A85C6F074611 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_413F026E540E46D892533B3C9633E82A }}
