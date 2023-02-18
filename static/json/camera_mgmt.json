@@ -359,5 +359,18 @@
             "Person"
         ],
         "camera_status": "stopped"
+    },
+    {
+        "camera": "cam1",
+        "json-name": "cam1.json",
+        "rtsp-url": "rtsp://admin:viumore@192.168.1.43:554",
+        "picture_path": "/static/images/cam1.jpg",
+        "zone_points": [
+            []
+        ],
+        "detection_classes": [
+            "Person"
+        ],
+        "camera_status": ""
     }
 ]

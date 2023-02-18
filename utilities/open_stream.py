@@ -1,82 +1,46 @@
 import cv2
 import numpy as np
-from os import path
 
 from threading import Thread
-
-from multiprocessing import Process
-from multiprocessing import active_children
 
 import utilities.yolo_objectdetection as yolo
 import utilities.model_inference_and_render as inference
 
-class WebcamVideoStream(Thread):
+class StreamGet:
+    """
+    Class that continuously gets frames from a VideoCapture object
+    with a dedicated thread.
+    """
     def __init__(self, src=0):
-        # initialize the video camera stream and read the first frame
-        # from the stream
         self.stream = cv2.VideoCapture(src)
         (self.grabbed, self.frame) = self.stream.read()
-        # initialize the variable used to indicate if the thread should
-        # be stopped
-        self.stopped = False
+        self.stopped= False
+    
     def start(self):
-        # start the thread to read frames from the video stream
-        Thread(target=self.update, args=()).start()
+        Thread(target=self.get, args=()).start()
+        print("GET TREATH STARTED")
         return self
-    def update(self):
-        # keep looping infinitely until the thread is stopped
-        while True:
-            # if the thread indicator variable is set, stop the thread
-            if self.stopped:
-                return
-            # otherwise, read the next frame from the stream
-            (self.grabbed, self.frame) = self.stream.read()
-            
-    def read(self):
-        # return the frame most recently read
-        return self.frame
+        
+    def get(self):
+        while not self.stopped:
+            if not self.grabbed:
+                self.stop()
+            else:
+                (self.grabbed, self.frame) = self.stream.read()
+    
     def stop(self):
-        # indicate that the thread should be stopped
         self.stopped = True
 
-""" class StartProcess(Process):
-    def __init__(self, rtsp):
-        Process.__init__(self)
-        self.rtsp = rtsp
-
-process_register = {}
-def processes_mgmt(status, rtsp):
-    if status == "start":
-        if rtsp in process_register:
-            print("Camera already running")
-        else:
-            start_process = StartProcess(rtsp)
-            start_process.start()
-            process_children = active_children()
-            for process_child in process_children:
-                if process_child.name not in process_register.values():
-                    process_register[rtsp] = process_child.name
-            print ("PROCES REGISTER in open_stream.py: ", process_register)
-            return process_register
-    if status == "stop":
-        if rtsp not in process_register:
-            print("Camera already stopped")
-        else:
-            process_children = active_children()
-            process_name = process_register[rtsp]
-            process_register.pop(rtsp)
-            print("after stop: ", process_register)
-            for process in process_children:
-                if process.name == process_name:
-                    process.kill()
-                    return True
- """
 def open_stream(rtsp, zone_points, camera_id, status):
     object_detect_model = yolo.initialize_yolo()
-    vs = WebcamVideoStream(src=rtsp).start()
+    stream_getter = StreamGet(rtsp).start()
 
     while True:
-        frame = vs.read()
+        if stream_getter.stopped:
+            stream_getter.stop()
+            break
+
+        frame = stream_getter.frame
         if zone_points != [[]]:
             infered_frame = inference.model_inference_and_render(camera_id, object_detect_model, frame)
             
@@ -94,5 +58,4 @@ def open_stream(rtsp, zone_points, camera_id, status):
 
         picture = buffer.tobytes()
         yield (b'--frame\r\n'
-            b'Content-Type: image/jpeg\r\n\r\n' + picture + b'\r\n')     
-    vs.stop()
+            b'Content-Type: image/jpeg\r\n\r\n' + picture + b'\r\n')
