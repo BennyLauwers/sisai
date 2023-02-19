@@ -73,3 +73,6 @@ def index():
     amount_full_rows = len(camera_list) // 4
 
     return render_template('index.html', len = len(camera_list), full_rows = amount_full_rows, todays_alert_values=array_todays_alert_values, delta = array_delta_values, camera_list = camera_list, today_formatted=today_formatted)
+
+if __name__ == '__main__':
+    app.run(debug=True, host="0.0.0.0", port=5000)
