@@ -53,14 +53,12 @@ app.register_blueprint(end_streams_overview_bp)
 app.register_blueprint(pass_camera_status_bp)
 
 
-#general variables
-today = datetime.date.today()
-now = dt.now().strftime("%H:%M:%S")
-today_formatted = today.strftime('%d %b %Y')
-
-
 @app.route('/')
 def index():
+    today = datetime.date.today()
+    now = dt.now().strftime("%H:%M:%S")
+    today_formatted = today.strftime('%d %b %Y')
+    
     camera_list, json_name_list, _, _, _, _, _= gcd.get_camera_data(cnst.CAMERA_MGMT_JSON_FILE)
     array_todays_alert_values = []
     array_delta_values = []
