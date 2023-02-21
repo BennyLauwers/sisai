@@ -58,6 +58,12 @@ def index():
     today = datetime.date.today()
     now = dt.now().strftime("%H:%M:%S")
     today_formatted = today.strftime('%d %b %Y')
+    yesterday = today - datetime.timedelta(days=1)
+
+    cnst.TODAY = datetime.date.today()
+    cnst.YESTERDAY = today - datetime.timedelta(days=1)
+    cnst.TODAY_FORMATTED = today_formatted
+    cnst.YESTERDAY_FORMATTED = yesterday.strftime('%d-%m-%Y')
     
     camera_list, json_name_list, _, _, _, _, _= gcd.get_camera_data(cnst.CAMERA_MGMT_JSON_FILE)
     array_todays_alert_values = []
