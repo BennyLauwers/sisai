@@ -60,9 +60,9 @@ def index():
     today_formatted = today.strftime('%d %b %Y')
     yesterday = today - datetime.timedelta(days=1)
 
-    cnst.TODAY = datetime.date.today()
+    cnst.TODAY = today
     cnst.YESTERDAY = today - datetime.timedelta(days=1)
-    cnst.TODAY_FORMATTED = today_formatted
+    cnst.TODAY_FORMATTED = today.strftime('%d-%m-%Y')
     cnst.YESTERDAY_FORMATTED = yesterday.strftime('%d-%m-%Y')
     
     camera_list, json_name_list, _, _, _, _, _= gcd.get_camera_data(cnst.CAMERA_MGMT_JSON_FILE)
