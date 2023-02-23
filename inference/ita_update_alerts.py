@@ -36,6 +36,7 @@ def update_json_alerts(camera_id, alert_amount):
                 print("JSONS_DATA DATE EXISTS: ", json_data)
             else:
                 print("DATE_NOT PRESENT")
+                alert_amount = 1
                 json_data.append({
                     "Date": today.strftime("%d-%m-%Y"),
                     "Alerts": alert_amount
