@@ -52,7 +52,6 @@ app.register_blueprint(end_stream_bp)
 app.register_blueprint(end_streams_overview_bp)
 app.register_blueprint(pass_camera_status_bp)
 
-
 @app.route('/')
 def index():
     today = datetime.date.today()

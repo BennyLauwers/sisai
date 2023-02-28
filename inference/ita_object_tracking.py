@@ -17,7 +17,7 @@ def tracking(camera_id, detections, frame, object_trackers, label_list, track_id
             cv2.putText(frame, "Person: " + str(track_id_person), (int(ltrb_box_person[0]) + 10, int(ltrb_box_person[1])+10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
             if int(track_id_person) > track_id_histories[0]:
                 alert_amount+=1
-                update.update_json_alerts(camera_id, alert_amount)
+                alert_amount = update.update_json_alerts(camera_id, alert_amount)
             
             if  int(track_id_person) > track_id_histories[0]:
                 track_id_histories[0] = int(track_id_person)
@@ -36,7 +36,7 @@ def tracking(camera_id, detections, frame, object_trackers, label_list, track_id
             cv2.putText(frame, "Car: " + str(track_id_car), (int(ltrb_box_car[0]) + 10, int(ltrb_box_car[1])+10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
             if int(track_id_car) > track_id_histories[1]:
                 alert_amount+=1
-                update.update_json_alerts(camera_id, alert_amount)
+                alert_amount = update.update_json_alerts(camera_id, alert_amount)
             
             if  int(track_id_car) > track_id_histories[1]:
                 track_id_histories[1] = int(track_id_car)
@@ -55,7 +55,7 @@ def tracking(camera_id, detections, frame, object_trackers, label_list, track_id
             cv2.putText(frame, "Truck: " + str(track_id_truck), (int(ltrb_box_truck[0]) + 10, int(ltrb_box_truck[1])+10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
             if int(track_id_truck) > track_id_histories[2]:
                 alert_amount+=1
-                update.update_json_alerts(camera_id, alert_amount)
+                alert_amount = update.update_json_alerts(camera_id, alert_amount)
             
             if  int(track_id_truck) > track_id_histories[2]:
                 track_id_histories[2] = int(track_id_truck)

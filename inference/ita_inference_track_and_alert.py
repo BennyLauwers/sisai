@@ -34,12 +34,24 @@ def get_video(cam_id, rtsp, zone_points):
     alert_amount = 0
     today_init = datetime.datetime.now()
     json_file_init = os.path.join(cnst.CAMERA_DATA_JSON_PATH, "{}.json".format(cam_id))
+    print("FILE: ", json_file_init)
     json_data_init = []
     with open(json_file_init, 'r') as f:
         json_data_init = json.load(f)
-        for item in json_data_init:
+        if json_data_init == []:
+            print("INIT")
+            json_data_init.append({
+                    "Date": today_init.strftime("%d-%m-%Y"),
+                    "Alerts": 0
+                })
+            with open(json_file_init, 'w') as j_file:  
+                json.dump(json_data_init, j_file, indent=4, separators=(',',':'))
+            print("JSONS_DATA AFTER INIT: ", json_data_init)
+        
+        for item in json_data_init:    
             if item['Date'] == today_init.strftime("%d-%m-%Y"):
                 alert_amount = item['Alerts']
+    print("ALERT_AMOUNT: ", alert_amount)
     
     while (True):
         success, frame = cap.read()
